@@ -1,0 +1,20 @@
+[Unit]
+Description=Telegram Restaurant Ordering Bot (Aiogram 3.x)
+After=network.target postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/telegram_restaurant_bot
+EnvironmentFile=/opt/telegram_restaurant_bot/.env
+ExecStart=/opt/telegram_restaurant_bot/venv/bin/python -m bot.main
+Restart=always
+RestartSec=5
+
+# Sandboxing & security limits
+LimitNOFILE=65535
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
